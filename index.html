@@ -1,35 +1,187 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-  <style>
-  	.section {
-		display:inline-block;
-		width: 300px;
-		margin: 10px;
-        height: 300px;
-        background-color:lightblue;
-        }
-    .section a {
-        font: bold;
-        color: brown;
-    }
-  </style>
+  <meta charset="utf-8">
+  <title> ISDA Derivative Negotiator </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ISDA Contract Negotiators, Derivative solutions: consulting, recruiting, and in-house/public training.">
+  <meta name="keywords" content="Derivative contract negotiator, derivative, contract, negotiator, ISDA, swaps, trader">
+  <link rel="stylesheet" href="assets/stylesheets/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- navbar tray script -->
+  <script type="text/javascript" src="assets/js/navbar-tray.js"></script>
+
+
 </head>
+
 <body>
-    <div class="section">
-        <a href="#">Java Sample</a>
+
+
+  <!--
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||| HEADER|||||||||||HEADER||||||||||HEADER||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+  <section id="hero-text">
+    <div class="hero-container">
+    <h1>Derivative Negotiator <span style="font-size:45px;">LLC</span></h1>
+    <h2 id="hero-kicker">Derivatives <span class="blue-text">Simplified.</span></h2>
     </div>
-    <div class="section">
-       <a href="#">Dotnet Sample</a>
+  </section>
+
+
+
+  <!-- NAV BAR -->
+  <nav id="nav-mobile">
+    <div class="nav-logo">
+      <a href="index.html"><img class="home-button" src="assets/images/logo.png" alt="Derivative Negotiator logo takes you home"></a>
     </div>
-    <div class="section">
-       <a href="#">Python Sample</a>
+    <ul>
+        <a href="#"><li class="nav-links services-button2">SERVICES</li></a>
+        <a href="isdanegotiations.html"><li class="nav-links sub-links">ISDA Negotiations</li></a>
+        <a href="publictraining.html"><li class="nav-links sub-links">Public Training</li></a>
+        <a href="inhousetraining.html"><li class="nav-links sub-links">In-house Training</li></a>
+        <a href="recruiting.html"><li class="nav-links sub-links">Recruiting</li></a>
+      <a href="about.html"><li class="nav-links">ABOUT</li></a>
+      <a href="contact.html"><li class="nav-links  blog-dropdown">CONTACT</li></a>
+    </ul>
+  </nav>
+
+  <nav id="nav-desktop">
+    <div class="nav-logo">
+      <a href="index.html"><img class="home-button" src="assets/images/logo.png" alt="Derivative Negotiator logo takes you home"></a>
     </div>
-    <div class="section">
-       <a href="#">Ruby Sample</a>
-    </div>
-    <div class="section">
-        <a href="#">JavaScript Sample</a>
+    <ul>
+      <li class="nav-links services-button2"><a>SERVICES </a>
+        <div class="dropdown">
+          <ul>
+            <li class="nav-links sub-links"><a href="isdanegotiations.html">ISDA Negotiations</a></li>
+            <li class="nav-links sub-links"><a href="publictraining.html">Public Training</a></li>
+            <li class="nav-links sub-links"><a href="inhousetraining.html">In-house Training</a></li>
+            <li class="nav-links sub-links"><a href="recruiting.html">Recruiting</a></li>
+          </ul>
+        </div>
+        </li>
+      <li class="nav-links"><a href="about.html">ABOUT</a></li>
+      <li class="nav-links"><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+
+
+
+
+  <!-- remember to remove css background to enable these to become visible!!!!!!!!!!!!!!!!! -->
+  <!-- <div class="header-background"> -->
+  <div class="hero-background" style="background: url('assets/images/training.jpg') top; background-size:cover; background-repeat:no-repeat;"></div>
+  <!-- </div> -->
+
+  <div class="header-background-color"></div>
+
+
+<!--
+|||||||||||||||||||||||||||||||||||
+SERVICES SECTION
+|||||||||||||||||||||||||||||||||||
+ -->
+
+  <section id="services-section">
+    <div class="services-container">
+          <h3 class="title2">Our Services</h3>
     </div>
 
+
+    <div class="services-container">
+    <a href="isdanegotiations.html">
+      <div class="services-showcase">
+
+        <div class="services-tophalf">
+          <div class="wrap">
+            <h1 class="services-title">ISDA Negotiations</h1>
+          </div>
+          <img class="isda-negotiations" src="assets/images/contract.jpg" />
+        </div>
+        <div class="services-text">
+          <p>Fast, protective ISDA services</p>
+        </div>
+
+      </div>
+    </a>
+
+      <div class="services-showcase">
+
+        <div class="services-tophalf">
+          <div class="wrap">
+            <h1 class="services-title">Training</h1>
+          </div>
+          <img class="training" src="assets/images/inhouse.jpg" />
+        </div>
+        <div class="services-text-training">
+          <a href="inhousetraining.html">In-house training</a>
+          <a href="publictraining.html">Public training</a>
+        </div>
+      </div>
+
+    <a href="recruiting.html">
+      <div class="services-showcase" style="flex:2">
+        <div class="services-tophalf">
+          <div class="wrap">
+            <h1 class="services-title">Recruiting</h1>
+          </div>
+          <img class="recruiting" src="assets/images/hero.jpg" />
+        </div>
+        <div class="services-text">
+          <p>Matching negotiators with your needs</p>
+        </div>
+      </div>
+    </a>
+    </div>
+  </section>
+
+<!-- FOOTER -->
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <ul>
+          <h3 class="blue-text">Product</h3>
+          <li><a href="isdanegotiations.html">ISDA Negotiations</a></li>
+          <li><a href="publictraining.html">Public Training</a></li>
+          <li><a href="inhousetraining.html">In-House Training</a></li>
+          <li><a href="recruiting.html">Recruiting</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <ul>
+          <h3 class="blue-text">Company</h3>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacypolicy.html">Privacy Policy</a></li>
+          <li><a href="termsofservice.html">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col-last">
+        <h2 class="blue-text">Contact Us:</h2><br>
+        <p>Tel: (347) 509-4797</p><br>
+        <a href="mailto:services@derivativenegotiator.com">services@derivativenegotiator.com</a>
+      </div>
+
+
+
+    </div>
+    <center class="below-footer"><a href="index.html"><img class="home-button" src="assets/images/logo.png" alt="Derivative Negotiator logo takes you home"></a></center>
+
+  </footer>
+
+
+
+
+
+
 </body>
+
 </html>
