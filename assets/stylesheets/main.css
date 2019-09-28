@@ -187,7 +187,6 @@ a {
 	position: absolute;
 	display: none;
   width: 100%;
-	max-width: 1400px;
   height: 80px;
   display: flex;
   align-items: center;
@@ -198,43 +197,6 @@ a {
 	margin-left: auto;
 	margin-right: auto;
 	border-bottom: 3px solid rgb(45, 188, 230);
-}
-
-.nav-logo {
-	display: inline-block;
-	height: inherit;
-	width: 100%;
-  align-self: center;
-  flex: 1;
-  text-decoration: none;
-  color: black;
-  text-align: center;
-  padding-left: 0px;
-	background-repeat: no-repeat;
-	background-size: contain;
-	align-self: center;
-
-}
-
-.nav-logo .home-button{
-	margin: 0 auto;
-}
-
-.home-button{
-	display: inline-block;
-	/* background: url("../images/logo.png"); */
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	width: 120px;
-	height: auto;
-	margin: 0 auto;
-}
-
-#nav-logo p{
-	padding-top: 30px;
-	align-self: center;
-	vertical-align: middle;
 }
 
 
@@ -553,6 +515,7 @@ footer a:hover{
 }
 
 .footer-col li{
+	display:inline-block;
 	margin: 10px;
 }
 
@@ -603,14 +566,13 @@ DESKTOP VERSION
 
 		align-items: flex-start;
 		border-top: none;
-		padding: 0px;
+		padding: 20px;
 		max-width: 300px;
 	}
 
 	.nav-links a{
 		color: black;
 		float: none;
-		padding-left: 10px;
 	}
 
 	nav ul{
@@ -626,8 +588,7 @@ DESKTOP VERSION
 	}
 
 	.hero-background{
-		height: 600px;
-		min-height: 600px;
+		height: 80%;
 	}
 
 	#hero-text h1{
