@@ -1,0 +1,35 @@
+title: Hello, world! I'm MAHESH TANNEERU
+description: > # this means to ignore newlines until "baseurl:"
+  SHARING IS CARING SO I WOULD LIKE TO PUT MY SOLUTIONS TO ANY ISSUES RELATED TO DEVELOPMENT, QA AND DEVOPS HERE SO THAT OTHER PEOPLE CAN GET HELP
+permalink: ':title/'
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://localhost:3000" # the base hostname & protocol for your site, e.g. http://example.com
+site-twitter: #if your site has a twitter account, enter it here
+
+# Author Settings
+author: MAHESH TANNEERU # add your name
+author-img: mahesh.jpg # add your photo
+about-author: I am an enthusiastic Software Engineer and a good human being :) # add description
+social-twitter: https://twitter.com/mtanneeru17 # add your Twitter handle
+social-facebook: https://www.facebook.com/mahesh.tanneeru # add your Facebook handle
+social-github: tanneerumahesh # add your Github handle
+social-linkedin: https://www.linkedin.com/in/mahesh-tanneeru/ # add your Linkedin handle
+social-email: # add your Email address
+
+# Disqus
+discus-identifier:  # add your discus identifier
+
+# Tracker
+analytics: # Google Analytics
+
+# Build Settings
+markdown: kramdown
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jemoji
+
+paginate: 8
+paginate_path: "/page/:num"
+
+exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
