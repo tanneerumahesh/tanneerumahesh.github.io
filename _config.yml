@@ -19,9 +19,6 @@ social-email: # add your Email address
 # Disqus
 discus-identifier:  # add your discus identifier
 
-# Tracker
-analytics: # Google Analytics
-
 # Build Settings
 markdown: kramdown
 plugins:
@@ -31,5 +28,8 @@ plugins:
 
 paginate: 8
 paginate_path: "/page/:num"
+
+google_ad_client: "pub-3173363828368587"
+site.google_tracking:
 
 exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
