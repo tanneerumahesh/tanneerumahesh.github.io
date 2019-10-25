@@ -1,9 +1,9 @@
-title: Hello, world! I'm MAHESH TANNEERU
+title: Mahesh's Tech Helpers
 description: > # this means to ignore newlines until "baseurl:"
-  SHARING IS CARING SO I WOULD LIKE TO PUT MY SOLUTIONS TO ANY ISSUES RELATED TO DEVELOPMENT, QA AND DEVOPS HERE SO THAT OTHER PEOPLE CAN GET HELP
+  Sharing is caring :) 
 permalink: ':title/'
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://localhost:3000" # the base hostname & protocol for your site, e.g. http://example.com
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings
