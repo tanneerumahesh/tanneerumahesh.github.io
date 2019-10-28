@@ -5,7 +5,7 @@ date: 2019-10-28 12:38:20 +0300
 description: Using MFA with aws cli to switch roles. # Add post description (optional)
 img:  # Add image post (optional)
 fig-caption: # Add figcaption (optional)
-tags: [aws, aws-cli, iam, mac]
+tags: [aws, aws-cli, iam, mfa, mac]
 ---
 
 ### Problem

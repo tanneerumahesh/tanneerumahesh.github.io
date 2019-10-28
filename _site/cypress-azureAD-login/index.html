@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Login to Azure AD using cypress - Mahesh's Tech Helpers</title>
+
+  <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
+
+    <meta content="Mahesh's Tech Helpers" property="og:site_name">
+  
+    <meta content="Login to Azure AD using cypress" property="og:title">
+  
+  
+    <meta content="article" property="og:type">
+  
+  
+    <meta content="Login to Azure AD using cypress." property="og:description">
+  
+  
+    <meta content="/cypress-azureAD-login/" property="og:url">
+  
+  
+    <meta content="2019-10-20T14:38:20+01:00" property="article:published_time">
+    <meta content="/about/" property="article:author">
+  
+  
+    <meta content="/assets/img/mahesh.jpg" property="og:image">
+  
+  
+    
+  
+  
+    
+    <meta content="cypress" property="article:tag">
+    
+    <meta content="azure" property="article:tag">
+    
+    <meta content="office365" property="article:tag">
+    
+    <meta content="puppeteer" property="article:tag">
+    
+  
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@https://twitter.com/mtanneeru17">
+  
+    <meta name="twitter:title" content="Login to Azure AD using cypress">
+  
+  
+    <meta name="twitter:url" content="/cypress-azureAD-login/">
+  
+  
+    <meta name="twitter:description" content="Login to Azure AD using cypress.">
+  
+  
+    <meta name="twitter:image:src" content="/assets/img/mahesh.jpg">
+  
+
+	<meta name="description" content="Login to Azure AD using cypress.">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta property="og:image" content="">
+	<link rel="shortcut icon" href="/assets/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/img/favicon/favicon1.png ">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicon/favicon2.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicon/favicon2.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#263959">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#263959">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
+	<!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+  
+   
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+  <header>
+    <div class="about">
+      <div class="cover-author-image">
+        <a href="/"><img src="/assets/img/mahesh.jpg" alt="MAHESH TANNEERU"></a>
+      </div>
+      <div class="author-name">MAHESH TANNEERU</div>
+      <p>I am an enthusiastic Software Engineer and a good Human being :)</p>
+    </div>
+  </header> <!-- End Header -->
+  <footer>
+    <section class="contact">
+      <h3 class="contact-title">Contact me</h3>
+      <ul>
+        
+          <li><a href="https://twitter.com/https://twitter.com/mtanneeru17" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        
+        
+          <li><a href="https://facebook.com/https://www.facebook.com/mahesh.tanneeru" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+        
+        
+          <li class="github"><a href="http://github.com/tanneerumahesh" target="_blank"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li class="linkedin"><a href="https://in.linkedin.com/in/https://www.linkedin.com/in/mahesh-tanneeru/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        
+        
+          <li class="email"><a href="mailto:example.david@blog.com"><i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>
+        
+      </ul>
+    </section> <!-- End Section Contact -->
+    <div class="copyright">
+      <p>2019 &copy; MAHESH TANNEERU</p>
+    </div>
+  </footer> <!-- End Footer -->
+</aside> <!-- End Sidebar -->
+<div class="content-box clearfix">
+  <article class="article-page">
+  <div class="page-content">
+    
+    
+    <div class="wrap-content">
+      <header class="header-page">
+        <h1 class="page-title">Login to Azure AD using cypress</h1>
+        <div class="page-date"><span>2019, Oct 20&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+      <h3 id="problem">Problem</h3>
+<p>I have a requirement to automate  azure ad login using cypress. Requirement is when user navigated to site-P it will redirect to azure AD login page where user has to enter login details and they will get redirected to site-P once login is successful. By design cypress doesn’t allow this because of many reasons as described [here] ( https://docs.cypress.io/guides/references/best-practices.html#Visiting-external-sites). I am not going to discuss good and bad about this here [as it’s a vast topic on its own!] but can show you how I managed to workaround this problem.</p>
+
+<h3 id="solution">Solution</h3>
+
+<h4 id="approach">Approach</h4>
+<p>After completing login process user will be redirected to my site and there will be couple of cookies added to site at this point [this might be different for different sites!], which will be used for any further authentication on site. So if I can get those cookies and add it to browser before starting cypress tests all should work [in theory]</p>
+
+<h4 id="how-to-do-it-">How to do it ?</h4>
+
+<p>Use <code class="highlighter-rouge">puppeteer</code> to complete the Azure login and extract cookies. [i am using puppeteer because it looks simple to me but any ui automation tool should do it]</p>
+
+<p>1.Install puppeteer using <code class="highlighter-rouge">npm install puppeteer</code>.</p>
+
+<p>2.Create a <code class="highlighter-rouge">GetCookies.js</code> file in support folder.</p>
+
+<p>3.Add below code to <code class="highlighter-rouge">GetCookies.js</code> which will login to Azure and extract cookies to <code class="highlighter-rouge">cookies.json</code> file.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">puppeteer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">puppeteer</span><span class="dl">"</span><span class="p">);</span> 
+<span class="kd">const</span> <span class="nx">test_file</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">fs</span><span class="dl">"</span><span class="p">);</span> 
+<span class="nx">puppeteer</span> <span class="p">.</span><span class="nx">launch</span><span class="p">({</span><span class="na">headless</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">chromeWebSecurity</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="na">args</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">--no-sandbox</span><span class="dl">'</span><span class="p">]</span> <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="k">async</span> <span class="nx">browser</span> <span class="o">=&gt;</span> <span class="p">{</span> 
+    <span class="kd">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">newPage</span><span class="p">();</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">goto</span><span class="p">(</span><span class="dl">"</span><span class="s2">{site-url</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitFor</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitForSelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">input[name=loginfmt]</span><span class="dl">'</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[name=loginfmt]</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">test123</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span><span class="na">applyDelay</span><span class="p">:</span> <span class="mi">50</span> <span class="p">});</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitForSelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[type=submit]</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[type=submit]</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitFor</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitForSelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[name=passwd]</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[name=passwd]</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[name=passwd]</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">test123</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span><span class="na">applyDelay</span><span class="p">:</span> <span class="mi">50</span><span class="p">});</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitForSelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[type=submit]</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[type=submit]</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitFor</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="dl">"</span><span class="s2">input[type=submit]</span><span class="dl">"</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitFor</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span> 
+    <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitForSelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">h3</span><span class="dl">"</span><span class="p">)</span> 
+    <span class="kd">const</span> <span class="nx">cookiesFromPage</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">cookies</span><span class="p">();</span> 
+      <span class="kd">let</span> <span class="nx">cookies</span> <span class="o">=</span> <span class="p">[];</span> 
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">cookie</span> <span class="k">of</span> <span class="nx">cookiesFromPage</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="kd">let</span> <span class="nx">coo</span> <span class="o">=</span> <span class="p">{};</span> 
+        <span class="nx">coo</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span> 
+        <span class="nx">coo</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span> 
+        <span class="nx">coo</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">domain</span><span class="p">;</span> 
+        <span class="nx">coo</span><span class="p">.</span><span class="nx">path</span>  <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">path</span><span class="p">;</span> 
+        <span class="nx">coo</span><span class="p">.</span><span class="nx">expires</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">expires</span><span class="p">;</span> 
+        <span class="nx">coo</span><span class="p">.</span><span class="nx">size</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">size</span><span class="p">;</span> 
+        <span class="nx">coo</span><span class="p">.</span><span class="nx">httpOnly</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">httpOnly</span><span class="p">;</span> 
+        <span class="nx">cookies</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">coo</span><span class="p">);</span> 
+      <span class="p">}</span> 
+    <span class="nx">test_file</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span> <span class="dl">"</span><span class="s2">cookies.json</span><span class="dl">"</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">cookies</span><span class="p">));</span> 
+    <span class="nx">browser</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span> 
+  <span class="p">});</span> 
+
+<span class="kd">function</span> <span class="nx">applyDelay</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span> <span class="p">{</span> 
+<span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">{</span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">time</span><span class="p">);});</span> 
+<span class="p">}</span> 
+</code></pre></div></div>
+
+<p>4.We need to add cookies to browser before starting cypress tests, add below function to <code class="highlighter-rouge">support/commands.js</code> which will add cookies to browser.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Cypress</span><span class="p">.</span><span class="nx">Commands</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="dl">"</span><span class="s2">loadCookies</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> 
+  <span class="nx">cy</span><span class="p">.</span><span class="nx">clearLocalStorage</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">cy</span><span class="p">.</span><span class="nx">fixture</span><span class="p">(</span><span class="dl">"</span><span class="s2">cookies.json</span><span class="dl">"</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">cookie</span> <span class="k">of</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span> 
+      <span class="nx">cy</span><span class="p">.</span><span class="nx">setCookie</span><span class="p">(</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">domain</span><span class="p">:</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">domain</span><span class="p">,</span> 
+        <span class="na">path</span><span class="p">:</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span> 
+        <span class="na">expiry</span><span class="p">:</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">expires</span><span class="p">,</span> 
+        <span class="na">httpOnly</span><span class="p">:</span> <span class="nx">cookie</span><span class="p">.</span><span class="nx">httpOnly</span> 
+      <span class="p">});</span> 
+    <span class="p">}</span> 
+  <span class="p">});</span> 
+<span class="p">});</span> 
+</code></pre></div></div>
+
+<p>5.Call load cookies command in <code class="highlighter-rouge">beforeEach</code> so that cookies will be loaded before test.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Azure login</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> 
+  <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span> 
+    <span class="nx">cy</span><span class="p">.</span><span class="nx">loadCookies</span><span class="p">();</span> 
+    <span class="nx">cy</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">);</span> 
+  <span class="p">});</span> 
+
+  <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Test Home page</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span> 
+      <span class="c1">// this should work! </span>
+    <span class="p">});</span> 
+</code></pre></div></div>
+
+<p>6.Finally we have to make sure that puppeteer script runs before starting cypress tests. Add below scripts to <code class="highlighter-rouge">package.json</code> to run puppeteer and cypress in sequential order</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span> 
+<span class="dl">"</span><span class="s2">get-cookies</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">node cypress/support/getCookies.js &amp;&amp; mv cookies.json cypress/fixtures</span><span class="dl">"</span><span class="p">,</span>
+<span class="dl">"</span><span class="s2">runTests</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">npm run get-cookies &amp;&amp; cypress run</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>7.Now run <code class="highlighter-rouge">npm run runTests</code> [if you are lucky everything will work :)]</p>
+
+      <div class="page-footer">
+        <div class="page-share">
+          <a href="https://twitter.com/intent/tweet?text=Login to Azure AD using cypress&url=/cypress-azureAD-login/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=/cypress-azureAD-login/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=/cypress-azureAD-login/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+        </div>
+        <div class="page-tag">
+          
+            <a href="/tags#cypress" class="tag">&#35; cypress</a>
+          
+            <a href="/tags#azure" class="tag">&#35; azure</a>
+          
+            <a href="/tags#office365" class="tag">&#35; office365</a>
+          
+            <a href="/tags#puppeteer" class="tag">&#35; puppeteer</a>
+          
+        </div>
+      </div>
+      <section class="comment-area">
+  <div class="comment-wrapper">
+    
+  </div>
+</section> <!-- End Comment Area -->
+
+    </div> <!-- End Wrap Content -->
+  </div> <!-- End Page Content -->
+</article> <!-- End Article Page -->
+
+</div>
+
+  </div>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script> <!-- End Analytics -->
+
+</body>
+</html>
