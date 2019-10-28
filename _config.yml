@@ -9,7 +9,7 @@ site-twitter: #if your site has a twitter account, enter it here
 # Author Settings
 author: MAHESH TANNEERU # add your name
 author-img: mahesh.jpg # add your photo
-about-author: I am an enthusiastic Software Engineer and a good human being :) # add description
+about-author: I am an enthusiastic Software Engineer and a good Human being :)  # add description
 social-twitter: https://twitter.com/mtanneeru17 # add your Twitter handle
 social-facebook: https://www.facebook.com/mahesh.tanneeru # add your Facebook handle
 social-github: tanneerumahesh # add your Github handle
@@ -29,7 +29,7 @@ plugins:
 paginate: 8
 paginate_path: "/page/:num"
 
-google_ad_client: "pub-3173363828368587"
+google_ad_client:
 site.google_tracking:
 
 exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]

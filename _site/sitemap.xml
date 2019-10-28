@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://localhost:3000/aws-cli-switch-role/</loc>
+<loc>/aws-cli-switch-role/</loc>
 <lastmod>2019-10-11T08:32:20+01:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:3000/</loc>
+<loc>/aws-cli-mfa/</loc>
+<lastmod>2019-10-28T09:38:20+00:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:3000/tags/</loc>
+<loc>/</loc>
+</url>
+<url>
+<loc>/tags/</loc>
 </url>
 </urlset>

@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Switch to different role using aws-cli - Mahesh's Tech Helpers</title>
+	<title>Using MFA with aws cli to switch roles - Mahesh's Tech Helpers</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="Mahesh's Tech Helpers" property="og:site_name">
   
-    <meta content="Switch to different role using aws-cli" property="og:title">
+    <meta content="Using MFA with aws cli to switch roles" property="og:title">
   
   
     <meta content="article" property="og:type">
   
   
-    <meta content="How to switch to different IAM role using aws-cli." property="og:description">
+    <meta content="Using MFA with aws cli to switch roles." property="og:description">
   
   
-    <meta content="/aws-cli-switch-role/" property="og:url">
+    <meta content="/aws-cli-mfa/" property="og:url">
   
   
-    <meta content="2019-10-11T08:32:20+01:00" property="article:published_time">
+    <meta content="2019-10-28T09:38:20+00:00" property="article:published_time">
     <meta content="/about/" property="article:author">
   
   
@@ -45,19 +45,19 @@
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@https://twitter.com/mtanneeru17">
   
-    <meta name="twitter:title" content="Switch to different role using aws-cli">
+    <meta name="twitter:title" content="Using MFA with aws cli to switch roles">
   
   
-    <meta name="twitter:url" content="/aws-cli-switch-role/">
+    <meta name="twitter:url" content="/aws-cli-mfa/">
   
   
-    <meta name="twitter:description" content="How to switch to different IAM role using aws-cli.">
+    <meta name="twitter:description" content="Using MFA with aws cli to switch roles.">
   
   
     <meta name="twitter:image:src" content="/assets/img/mahesh.jpg">
   
 
-	<meta name="description" content="How to switch to different IAM role using aws-cli.">
+	<meta name="description" content="Using MFA with aws cli to switch roles.">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
@@ -128,65 +128,57 @@
     
     <div class="wrap-content">
       <header class="header-page">
-        <h1 class="page-title">Switch to different role using aws-cli</h1>
-        <div class="page-date"><span>2019, Oct 11&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+        <h1 class="page-title">Using MFA with aws cli to switch roles</h1>
+        <div class="page-date"><span>2019, Oct 28&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <p>If you ended up on this post you might be struggling to change the IAM role using aws-cli(for any reason) and found this post! i might be able to help here as i had same frustration some time back :)</p>
-
-<h3 id="problem">Problem</h3>
-<p>From aws console i can login to my account and i can switch role to <strong>dev</strong> to access aws resources related to <strong>dev</strong> environment, all looks good here. Now i want to access <strong>dev</strong> resources from my local as i need to run my tests against <strong>dev</strong> resources, as usual i ran the tests with my default credentials (configured using aws-cli) and they fail straight away with error <strong>no access to resource</strong>, this is because my <strong>default</strong> role will not have access to <strong>dev</strong> resources. ok i now know the problem and the solution is simple change roles, BUT its not that simple as i tried 10 different ways to change role to <strong>dev</strong>. Below is the solution worked for me.</p>
+      <h3 id="problem">Problem</h3>
+<p>If we have MFA(multi factor authentication) setup enabled on AWS console then we need to generate temporary access/secret keys and session token with MFA to access aws services through aws cli lets see how we can do it!.</p>
 
 <h3 id="solution">Solution</h3>
 <ol>
-  <li>
-    <p>Open credentials file <strong>~/.aws/credentials</strong></p>
+  <li>Get MFA device arn from AWS console
+    <ul>
+      <li>Click on account name  -&gt; click on <strong>My security credentials</strong> 
+<img src="/assets/img/aws_sec_creds.png" alt="alt text" /></li>
+    </ul>
   </li>
   <li>
-    <p>It should already have default profile section with access/secret keys [if not use <code class="highlighter-rouge">aws configure</code> to configure secrets]</p>
+    <p>Get device ARN from ‘Assigned MFA Device’ section in ‘Multi-factor authentication (MFA)’ section 
+ <img src="/assets/img/aws_mfa.png" alt="alt text" /></p>
   </li>
-  <li>
-    <p>Add <strong>AssumeRole</strong> section and a <strong>dev</strong> profile section in credentials file</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [default] 
- aws_access_key_id = abc123 
- aws_secret_access_key = abc123 
-
- [dev]              // new profile but credentials are same as default  
- aws_access_key_id = abc123 
- aws_secret_access_key = abc123 
-
- [AssumeRole]                   // new section 
- role_arn = arn:aws:iam::1235634:role/dev-arm  
- source_profile = dev
+  <li>Run below command to get temp credentials  [by replacing arn and token code]
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws sts assume-role --role-arn {Role ARN} --role-session-name {Session name}  --serial-number {MFA device ARN from above step} --token-code {token code} 
 </code></pre></div>    </div>
+    <p>Note: duration can be set between 900 and 129600 using –duration-seconds 129600 [this might vary based on role configuration. ]</p>
   </li>
-  <li>
-    <p>Open config file <strong>~/.aws/config</strong></p>
-  </li>
-  <li>
-    <p>Add <strong>dev</strong> profile to config file</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [default] 
- region = eu-west-1 
-    
- [profile dev] // this is new profile 
- region = eu-west-1 
+  <li>Above command should output access/secret/session tokens which should look like below
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ 
+ "Credentials": { 
+     "AccessKeyId": "ASIA56SNEE5Y3SEU4K6S", 
+     "SecretAccessKey": "0R/eUqKTavYUKm6dMXiASQP5hwygaxJCi/FrfvXe", 
+     "SessionToken": "FQoGZXIvYXdzEHcaDAwcmHZVDwstu1jUnCL1AYJJF8WY98Xw4vQ/bWvU5bfHqjtgp0ras2JSD9TBKdtdLjnMcSDweK4pwkMPVmKjSLBVqfh0t/p5WKJsKTvmhiEoUBiy7gzaBGfOC8Ue+XG+6SYt1N7etbYJ/5+F4xPFfns36dCAy1KULTD+7FH9/Wt4tHK5xetFSmD+jgf2z5H3uHhkR4khd7OAdN1mp+YOLoHZfYpV3FgdmOozFtXKi2YWg7IK+2BQj2N2A/2kaCizE29UMWAEVZhO/8tE4kf/q/XrvWt1+SAb/7nZRUhw1Qu5vfpvEzvkMOfYSE0YNZbs/5Cy4MXZ5A9g00OpHcytAOZ8Sga1KL65nO0F", 
+     "Expiration": "2019-10-16T14:35:58Z" 
+ }, 
+ "AssumedRoleUser": { 
+     "AssumedRoleId": "FRESCVHHNBGFFF45FRS:testRole", 
+     "Arn": "arn:aws:sts::65764765765:assumed-role/AccessToTestDev/testRole" 
+ } 
+} 
 </code></pre></div>    </div>
+    <p><br /></p>
   </li>
-  <li>
-    <p>Run a sample command like <code class="highlighter-rouge">aws iam list-users --profile dev</code>. if your configuration is correct and you are lucky you will see users listed and you can connect to resources in <strong>dev</strong> role.</p>
+  <li>Use access and secret keys from above step to connect to AWS resources
+    <ul>
+      <li>Note:  keep in mind that there is an expiration for session token so when token expired we need to refresh the token again</li>
+    </ul>
   </li>
 </ol>
 
-<ul>
-  <li>Remember you have to run all commands with <code class="highlighter-rouge">--profile dev</code> to tell aws-cli to use the role. if you don’t want to use it always [WHICH I DON’T PREFER as you might mess with dev resources like i do!] you can run <code class="highlighter-rouge">export AWS_DEFAULT_PROFILE=dev</code>. now you can run commands like <code class="highlighter-rouge">aws iam list-users</code> with out <code class="highlighter-rouge">--profile dev</code></li>
-</ul>
-
       <div class="page-footer">
         <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=Switch to different role using aws-cli&url=/aws-cli-switch-role/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
-          <a href="https://facebook.com/sharer.php?u=/aws-cli-switch-role/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
-          <a href="https://plus.google.com/share?url=/aws-cli-switch-role/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+          <a href="https://twitter.com/intent/tweet?text=Using MFA with aws cli to switch roles&url=/aws-cli-mfa/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=/aws-cli-mfa/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=/aws-cli-mfa/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
         </div>
         <div class="page-tag">
           
