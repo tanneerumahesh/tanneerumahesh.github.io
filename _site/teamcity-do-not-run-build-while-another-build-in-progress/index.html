@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Using MFA with aws cli to switch roles - Mahesh's Tech Helpers</title>
+	<title>TeamCity - Do not run a build while another build is in progress - Mahesh's Tech Helpers</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="Mahesh's Tech Helpers" property="og:site_name">
   
-    <meta content="Using MFA with aws cli to switch roles" property="og:title">
+    <meta content="TeamCity - Do not run a build while another build is in progress" property="og:title">
   
   
     <meta content="article" property="og:type">
   
   
-    <meta content="Using MFA with aws cli to switch roles." property="og:description">
+    <meta content="TeamCity - Do not run a build while another build is in progress." property="og:description">
   
   
-    <meta content="/aws-cli-mfa/" property="og:url">
+    <meta content="/teamcity-do-not-run-build-while-another-build-in-progress/" property="og:url">
   
   
-    <meta content="2019-10-28T09:38:20+00:00" property="article:published_time">
+    <meta content="2019-10-29T09:38:20+00:00" property="article:published_time">
     <meta content="/about/" property="article:author">
   
   
@@ -31,15 +31,7 @@
   
   
     
-    <meta content="aws" property="article:tag">
-    
-    <meta content="aws-cli" property="article:tag">
-    
-    <meta content="iam" property="article:tag">
-    
-    <meta content="mfa" property="article:tag">
-    
-    <meta content="mac" property="article:tag">
+    <meta content="TeamCity" property="article:tag">
     
   
 
@@ -47,19 +39,19 @@
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@https://twitter.com/mtanneeru17">
   
-    <meta name="twitter:title" content="Using MFA with aws cli to switch roles">
+    <meta name="twitter:title" content="TeamCity - Do not run a build while another build is in progress">
   
   
-    <meta name="twitter:url" content="/aws-cli-mfa/">
+    <meta name="twitter:url" content="/teamcity-do-not-run-build-while-another-build-in-progress/">
   
   
-    <meta name="twitter:description" content="Using MFA with aws cli to switch roles.">
+    <meta name="twitter:description" content="TeamCity - Do not run a build while another build is in progress.">
   
   
     <meta name="twitter:image:src" content="/assets/img/mahesh.jpg">
   
 
-	<meta name="description" content="Using MFA with aws cli to switch roles.">
+	<meta name="description" content="TeamCity - Do not run a build while another build is in progress.">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
@@ -130,69 +122,49 @@
     
     <div class="wrap-content">
       <header class="header-page">
-        <h1 class="page-title">Using MFA with aws cli to switch roles</h1>
-        <div class="page-date"><span>2019, Oct 28&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+        <h1 class="page-title">TeamCity - Do not run a build while another build is in progress</h1>
+        <div class="page-date"><span>2019, Oct 29&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
       <h3 id="problem">Problem</h3>
-<p>If we have MFA(multi factor authentication) setup enabled on AWS console then we need to generate temporary access/secret keys and session token with MFA to access aws services through aws cli. lets see how we can do it!.</p>
+<p>I came across this issue in TeamCity today where as part of CI my automation tests are running against dev environment and sometimes tests are failing because deployment build triggered while test build is in progress. in this case my tests will fail because site will be down for few mins as part of deployment. So I need a way to tell TeamCity that do not run deployment build while automation test build is in progress.</p>
 
 <h3 id="solution">Solution</h3>
-<ol>
-  <li>Get MFA device arn from AWS console
-    <ul>
-      <li>Click on account name  -&gt; click on <strong>My security credentials</strong> 
-<img src="/assets/img/aws_sec_creds.png" alt="alt text" /></li>
-    </ul>
-  </li>
-  <li>
-    <p>Get device ARN from ‘Assigned MFA Device’ section in ‘Multi-factor authentication (MFA)’ section 
- <img src="/assets/img/aws_mfa.png" alt="alt text" /></p>
-  </li>
-  <li>Run below command to get temp credentials  [by replacing arn and token code]
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws sts assume-role --role-arn {Role ARN} --role-session-name {Session name}  --serial-number {MFA device ARN from above step} --token-code {token code} 
-</code></pre></div>    </div>
-    <p>Note: duration can be set between 900 and 129600 using –duration-seconds 129600 [this might vary based on role configuration. ]</p>
-  </li>
-  <li>Above command should output access/secret/session tokens which should look like below
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ 
- "Credentials": { 
-     "AccessKeyId": "ASIA56SNEE5Y3SEU4K6S", 
-     "SecretAccessKey": "0R/eUqKTavYUKm6dMXiASQP5hwygaxJCi/FrfvXe", 
-     "SessionToken": "FQoGZXIvYXdzEHcaDAwcmHZVDwstu1jUnCL1AYJJF8WY98Xw4vQ/bWvU5bfHqjtgp0ras2JSD9TBKdtdLjnMcSDweK4pwkMPVmKjSLBVqfh0t/p5WKJsKTvmhiEoUBiy7gzaBGfOC8Ue+XG+6SYt1N7etbYJ/5+F4xPFfns36dCAy1KULTD+7FH9/Wt4tHK5xetFSmD+jgf2z5H3uHhkR4khd7OAdN1mp+YOLoHZfYpV3FgdmOozFtXKi2YWg7IK+2BQj2N2A/2kaCizE29UMWAEVZhO/8tE4kf/q/XrvWt1+SAb/7nZRUhw1Qu5vfpvEzvkMOfYSE0YNZbs/5Cy4MXZ5A9g00OpHcytAOZ8Sga1KL65nO0F", 
-     "Expiration": "2019-10-16T14:35:58Z" 
- }, 
- "AssumedRoleUser": { 
-     "AssumedRoleId": "FRESCVHHNBGFFF45FRS:testRole", 
-     "Arn": "arn:aws:sts::65764765765:assumed-role/AccessToTestDev/testRole" 
- } 
-} 
-</code></pre></div>    </div>
-    <p><br /></p>
-  </li>
-  <li>Use access and secret keys from above step to connect to AWS resources
-    <ul>
-      <li>Note:  keep in mind that there is an expiration for session token so when token expired we need to refresh the token again</li>
-    </ul>
-  </li>
-</ol>
+<p>To solve this problem I need to configure builds in a way that one build should not run while other build is in progress. Apparently it’s not that straight forward in TC [at least for me!], I tried different ways but what worked for me is locking builds using shared resources. Below are the steps to configure this.</p>
+
+<p>1.Create a shared resource at project level : <strong>Project -&gt; Shared Resources -&gt; Add a shared resource</strong></p>
+
+<p>2.Add a Resource name and select <strong>Resource with quota</strong> from resource type</p>
+
+<p>3.Enter 1 in resource quota field</p>
+
+<p>4.Save resource</p>
+
+<p><img src="/assets/img/tc-save-resource.png" alt="alt text" /></p>
+
+<p>5.Navigate to Deployment build configuration</p>
+
+<p>6.Go to Build <strong>Features -&gt; Add build feature -&gt; Shared resources -&gt; Add Lock</strong></p>
+
+<p>7.Select resource name created above and select <strong>Write Lock</strong> in lock type</p>
+
+<p>8.Save Lock</p>
+
+<p><img src="/assets/img/tc-save-lock.png" alt="alt text" /></p>
+
+<p>9.Repeat steps 5-8 for automation tests build</p>
+
+<p>DONE :  only one of these builds will run at a time now.</p>
+
 
       <div class="page-footer">
         <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=Using MFA with aws cli to switch roles&url=/aws-cli-mfa/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
-          <a href="https://facebook.com/sharer.php?u=/aws-cli-mfa/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
-          <a href="https://plus.google.com/share?url=/aws-cli-mfa/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
+          <a href="https://twitter.com/intent/tweet?text=TeamCity - Do not run a build while another build is in progress&url=/teamcity-do-not-run-build-while-another-build-in-progress/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://facebook.com/sharer.php?u=/teamcity-do-not-run-build-while-another-build-in-progress/" title="Share on Facebook" rel="nofollow" target="_blank">Facebook</a>
+          <a href="https://plus.google.com/share?url=/teamcity-do-not-run-build-while-another-build-in-progress/" title="Share on Google+" rel="nofollow" target="_blank">Google+</a>
         </div>
         <div class="page-tag">
           
-            <a href="/tags#aws" class="tag">&#35; aws</a>
-          
-            <a href="/tags#aws-cli" class="tag">&#35; aws-cli</a>
-          
-            <a href="/tags#iam" class="tag">&#35; iam</a>
-          
-            <a href="/tags#mfa" class="tag">&#35; mfa</a>
-          
-            <a href="/tags#mac" class="tag">&#35; mac</a>
+            <a href="/tags#TeamCity" class="tag">&#35; TeamCity</a>
           
         </div>
       </div>

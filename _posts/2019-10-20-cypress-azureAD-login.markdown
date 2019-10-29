@@ -9,7 +9,7 @@ tags: [cypress, azure, office365, puppeteer]
 ---
 
 ### Problem
-I have a requirement to automate  azure ad login using cypress. Requirement is when user navigated to site-P it will redirect to azure AD login page where user has to enter login details and they will get redirected to site-P once login is successful. By design cypress doesn't allow this because of many reasons as described [here] ( https://docs.cypress.io/guides/references/best-practices.html#Visiting-external-sites). I am not going to discuss good and bad about this here [as it’s a vast topic on its own!] but can show you how I managed to workaround this problem.   
+I have a requirement to automate  azure ad login using cypress. Requirement is when user navigated to site-P it will redirect to azure AD login page where user has to enter login details and they will get redirected to site-P once login is successful. By design cypress doesn't allow this because of many reasons as described [here](https://docs.cypress.io/guides/references/best-practices.html#Visiting-external-sites). I am not going to discuss good and bad about this here [as it’s a vast topic on its own!] but can show you how I managed to workaround this problem.   
 
 ### Solution
 

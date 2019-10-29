@@ -9,7 +9,7 @@ tags: [aws, aws-cli, iam, mfa, mac]
 ---
 
 ### Problem
-If we have MFA(multi factor authentication) setup enabled on AWS console then we need to generate temporary access/secret keys and session token with MFA to access aws services through aws cli lets see how we can do it!.   
+If we have MFA(multi factor authentication) setup enabled on AWS console then we need to generate temporary access/secret keys and session token with MFA to access aws services through aws cli. lets see how we can do it!.   
 
 ### Solution
 1. Get MFA device arn from AWS console 
