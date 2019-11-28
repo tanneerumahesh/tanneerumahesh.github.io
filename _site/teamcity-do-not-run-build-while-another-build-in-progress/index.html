@@ -116,6 +116,97 @@
   </footer> <!-- End Footer -->
 </aside> <!-- End Sidebar -->
 <div class="content-box clearfix">
+    <script src="/js/lunr.js"></script>
+
+<script>
+
+var documents = [{
+    "id": 0,
+    "url": "/",
+    "title": "",
+    "body": "{% for post in paginator. posts %}  {% if post. img %}  &lt;a class= post-thumbnail  style= background-image: url({{ /assets/img/  | prepend: site. baseurl | append : post. img}})  href= {{post. url | prepend: site. baseurl}} &gt;&lt;/a&gt; {% else %} {% endif %}   {{post. title}}:   {{ post. content | strip_html | truncatewords: 15 }}   {{post. date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;  {% capture words %}{{ post. content | number_of_words }}{% endcapture %}{% unless words contains  -  %}{{ words | plus: 250 | divided_by: 250 | append:   minute read  }}{% endunless %} {% endfor %} {% include pagination. html %} "
+    }, {
+    "id": 1,
+    "url": "/tags/",
+    "title": "Tags",
+    "body": "      {% capture site_tags %}{% for tag in site. tags %}{{ tag   first }}{% unless forloop. last %},{% endunless %}{% endfor %}{% endcapture %}           {% assign tag_words = site_tags   split:’,’   sort %}    Tags in Blog  {% for this_word in tag_words %}  {{ this_word }} ({{ site. tags[this_word]. size }}) {% endfor %}  {% for this_word in tag_words %} {{ this_word }}:   {% for post in site. tags[this_word] %}{% if post. title != null %}      {{ post. title }}    | {{ post. date | date_to_string }}    {% endif %}{% endfor %} {% endfor %}"
+    }, {
+    "id": 2,
+    "url": "/robots.txt",
+    "title": "",
+    "body": "      Sitemap: {{ &#8220;sitemap. xml&#8221;   absolute_url }}   "
+    }, {
+    "id": 3,
+    "url": "/teamcity-do-not-run-build-while-another-build-in-progress/",
+    "title": "TeamCity - Do not run a build while another build is in progress",
+    "body": "2019/10/29 - Problem: I came across this issue in TeamCity today where as part of CI my automation tests are running against dev environment and sometimes tests are failing because deployment build triggered while test build is in progress. in this case my tests will fail because site will be down for few mins as part of deployment. So I need a way to tell TeamCity that do not run deployment build while automation test build is in progress. Solution: To solve this problem I need to configure builds in a way that one build should not run while other build is in progress. Apparently it’s not that straight forward in TC [at least for me!], I tried different ways but what worked for me is locking builds using shared resources. Below are the steps to configure this. 1. Create a shared resource at project level : Project -&gt; Shared Resources -&gt; Add a shared resource 2. Add a Resource name and select Resource with quota from resource type 3. Enter 1 in resource quota field 4. Save resource 5. Navigate to Deployment build configuration 6. Go to Build Features -&gt; Add build feature -&gt; Shared resources -&gt; Add Lock 7. Select resource name created above and select Write Lock in lock type 8. Save Lock 9. Repeat steps 5-8 for automation tests build DONE : only one of these builds will run at a time now. "
+    }, {
+    "id": 4,
+    "url": "/aws-cli-mfa/",
+    "title": "Using MFA with aws cli to switch roles",
+    "body": "2019/10/28 - Problem: If we have MFA(multi factor authentication) setup enabled on AWS console then we need to generate temporary access/secret keys and session token with MFA to access aws services through aws cli. lets see how we can do it!. Solution:  Get MFA device arn from AWS console     Click on account name -&gt; click on My security credentials       Get device ARN from ‘Assigned MFA Device’ section in ‘Multi-factor authentication (MFA)’ section    Run below command to get temp credentials [by replacing arn and token code]  aws sts assume-role --role-arn {Role ARN} --role-session-name {Session name} --serial-number {MFA device ARN from above step} --token-code {token code}     Note: duration can be set between 900 and 129600 using –duration-seconds 129600 [this might vary based on role configuration. ]   Above command should output access/secret/session tokens which should look like below  {  Credentials : {    AccessKeyId :  ASIA56SNEE5Y3SEU4K6S ,    SecretAccessKey :  0R/eUqKTavYUKm6dMXiASQP5hwygaxJCi/FrfvXe ,    SessionToken :  FQoGZXIvYXdzEHcaDAwcmHZVDwstu1jUnCL1AYJJF8WY98Xw4vQ/bWvU5bfHqjtgp0ras2JSD9TBKdtdLjnMcSDweK4pwkMPVmKjSLBVqfh0t/p5WKJsKTvmhiEoUBiy7gzaBGfOC8Ue+XG+6SYt1N7etbYJ/5+F4xPFfns36dCAy1KULTD+7FH9/Wt4tHK5xetFSmD+jgf2z5H3uHhkR4khd7OAdN1mp+YOLoHZfYpV3FgdmOozFtXKi2YWg7IK+2BQj2N2A/2kaCizE29UMWAEVZhO/8tE4kf/q/XrvWt1+SAb/7nZRUhw1Qu5vfpvEzvkMOfYSE0YNZbs/5Cy4MXZ5A9g00OpHcytAOZ8Sga1KL65nO0F ,    Expiration :  2019-10-16T14:35:58Z  },  AssumedRoleUser : {    AssumedRoleId :  FRESCVHHNBGFFF45FRS:testRole ,    Arn :  arn:aws:sts::65764765765:assumed-role/AccessToTestDev/testRole  } }       Use access and secret keys from above step to connect to AWS resources     Note: keep in mind that there is an expiration for session token so when token expired we need to refresh the token again   "
+    }, {
+    "id": 5,
+    "url": "/cypress-azureAD-login/",
+    "title": "Login to Azure AD using cypress",
+    "body": "2019/10/20 - Problem: I have a requirement to automate azure ad login using cypress. Requirement is when user navigated to site-P it will redirect to azure AD login page where user has to enter login details and they will get redirected to site-P once login is successful. By design cypress doesn’t allow this because of many reasons as described here. I am not going to discuss good and bad about this here [as it’s a vast topic on its own!] but can show you how I managed to workaround this problem. Solution: Approach: After completing login process user will be redirected to my site and there will be couple of cookies added to site at this point [this might be different for different sites!], which will be used for any further authentication on site. So if I can get those cookies and add it to browser before starting cypress tests all should work [in theory] How to do it ?: Use puppeteer to complete the Azure login and extract cookies. [i am using puppeteer because it looks simple to me but any ui automation tool should do it] 1. Install puppeteer using npm install puppeteer. 2. Create a GetCookies. js file in support folder. 3. Add below code to GetCookies. js which will login to Azure and extract cookies to cookies. json file. const puppeteer = require( puppeteer ); const test_file = require( fs ); puppeteer . launch({headless: true, chromeWebSecurity: false, args: ['--no-sandbox'] }). then(async browser =&gt; {   const page = await browser. newPage();   await page. goto( {site-url );   await page. waitFor(2000);   await page. waitForSelector('input[name=loginfmt]');   await page. type( input[name=loginfmt] ,  test123 , {applyDelay: 50 });   await page. waitForSelector( input[type=submit] );   await page. click( input[type=submit] );   await page. waitFor(2000);   await page. waitForSelector( input[name=passwd] );   await page. click( input[name=passwd] );   await page. type( input[name=passwd] ,  test123 , {applyDelay: 50});   await page. waitForSelector( input[type=submit] );   await page. click( input[type=submit] );   await page. waitFor(2000);   await page. click( input[type=submit] );   await page. waitFor(2000);   await page. waitForSelector( h3 )   const cookiesFromPage = await page. cookies();    let cookies = [];    for (let cookie of cookiesFromPage) {     let coo = {};     coo. name = cookie. name;     coo. value = cookie. value;     coo. domain = cookie. domain;     coo. path = cookie. path;     coo. expires = cookie. expires;     coo. size = cookie. size;     coo. httpOnly = cookie. httpOnly;     cookies. push(coo);    }   test_file. writeFileSync(  cookies. json , JSON. stringify(cookies));   browser. close();  }); function applyDelay(time) { return new Promise(function (resolve) {setTimeout(resolve, time);}); } 4. We need to add cookies to browser before starting cypress tests, add below function to support/commands. js which will add cookies to browser. Cypress. Commands. add( loadCookies , () =&gt; {  cy. clearLocalStorage(); return cy. fixture( cookies. json ). then(data =&gt; {   for (let cookie of data) {    cy. setCookie(cookie. name, cookie. value, {    domain: cookie. domain,     path: cookie. path,     expiry: cookie. expires,     httpOnly: cookie. httpOnly    });   }  }); }); 5. Call load cookies command in beforeEach so that cookies will be loaded before test. describe('Azure login', () =&gt; {  beforeEach(() =&gt; {   cy. loadCookies();   cy. visit('/');  });  it('Test Home page', () =&gt; {    // this should work!   }); 6. Finally we have to make sure that puppeteer script runs before starting cypress tests. Add below scripts to package. json to run puppeteer and cypress in sequential order  scripts : {  get-cookies :  node cypress/support/getCookies. js &amp;&amp; mv cookies. json cypress/fixtures , runTests :  npm run get-cookies &amp;&amp; cypress run }7. Now run npm run runTests [if you are lucky everything will work :)] "
+    }, {
+    "id": 6,
+    "url": "/aws-cli-switch-role/",
+    "title": "Switch to different role using aws-cli",
+    "body": "2019/10/11 - If you ended up on this post you might be struggling to change the IAM role using aws-cli(for any reason) and found this post! i might be able to help here as i had same frustration some time back :) Problem: From aws console i can login to my account and i can switch role to dev to access aws resources related to dev environment, all looks good here. Now i want to access dev resources from my local as i need to run my tests against dev resources, as usual i ran the tests with my default credentials (configured using aws-cli) and they fail straight away with error no access to resource, this is because my default role will not have access to dev resources. ok i now know the problem and the solution is simple change roles, BUT its not that simple as i tried 10 different ways to change role to dev. Below is the solution worked for me. Solution:    Open credentials file ~/. aws/credentials     It should already have default profile section with access/secret keys [if not use aws configure to configure secrets]     Add AssumeRole section and a dev profile section in credentials file   [default] aws_access_key_id = abc123 aws_secret_access_key = abc123 [dev]       // new profile but credentials are same as default  aws_access_key_id = abc123 aws_secret_access_key = abc123 [AssumeRole]          // new section role_arn = arn:aws:iam::1235634:role/dev-arm  source_profile = dev      Open config file ~/. aws/config     Add dev profile to config file   [default] region = eu-west-1   [profile dev] // this is new profile region = eu-west-1       Run a sample command like aws iam list-users --profile dev. if your configuration is correct and you are lucky you will see users listed and you can connect to resources in dev role.   Remember you have to run all commands with --profile dev to tell aws-cli to use the role. if you don’t want to use it always [WHICH I DON’T PREFER as you might mess with dev resources like i do!] you can run export AWS_DEFAULT_PROFILE=dev. now you can run commands like aws iam list-users with out --profile dev"
+    }];
+
+var idx = lunr(function () {
+    this.ref('id')
+    this.field('title')
+    this.field('body')
+
+    documents.forEach(function (doc) {
+        this.add(doc)
+    }, this)
+});
+function lunr_search(term) {
+    document.getElementById('lunrsearchresults').innerHTML = '<ul></ul>';
+    if(term) {
+        document.getElementById('lunrsearchresults').innerHTML = "<p>Search results for '" + term + "'</p>" + document.getElementById('lunrsearchresults').innerHTML;
+        //put results on the screen.
+        var results = idx.search(term);
+        if(results.length>0){
+            //console.log(idx.search(term));
+            //if results
+            for (var i = 0; i < results.length; i++) {
+                // more statements
+                var ref = results[i]['ref'];
+                var url = documents[ref]['url'];
+                var title = documents[ref]['title'];
+                var body = documents[ref]['body'].substring(0,160)+'...';
+                document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML + "<li class='lunrsearchresult'><a href='" + url + "'><span class='title'>" + title + "</span><br /><span class='body'>"+ body +"</span><br /><span class='url'>"+ url +"</span></a></li>";
+            }
+        } else {
+            document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = "<li class='lunrsearchresult'>No results found...</li>";
+        }
+    }
+    return false;
+}
+</script>
+<style>
+    #lunrsearchresults {padding-top: 0.2rem;}
+    .lunrsearchresult {padding-bottom: 1rem;}
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <p><input type="text" class="form-control" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Search Articles" style="border-color: #53a7e8;" /></p>
+</form>
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
   <article class="article-page">
   <div class="page-content">
     
