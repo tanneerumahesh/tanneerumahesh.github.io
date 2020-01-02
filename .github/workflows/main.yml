@@ -1,0 +1,28 @@
+name: Deploy GH-PAGES
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: install ruby
+      uses: clupprich/ruby-build-action@master
+      with: 
+        ruby-version: 2.6.5
+    - name: installl node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: build pages
+      run: |
+        npm install
+        gulp saas
+        gulp img
+        gulp jekyll-build
+        
+        
+   
