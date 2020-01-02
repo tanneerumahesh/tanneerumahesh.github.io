@@ -9,10 +9,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: cache ruby  
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: ~/local/rubies
+        key: ruby-2.6.5  
     - name: install ruby
       uses: clupprich/ruby-build-action@master
       with: 
         ruby-version: 2.6.5
+        cache-available: ${{ steps.cache.outputs.cache-hit == 'true' }}
     - name: installl node
       uses: actions/setup-node@v1
       with:
@@ -20,7 +27,7 @@ jobs:
     - name: build pages
       run: |
         npm install
-        gulp saas
+        gulp sass
         gulp img
         gulp jekyll-build
         
