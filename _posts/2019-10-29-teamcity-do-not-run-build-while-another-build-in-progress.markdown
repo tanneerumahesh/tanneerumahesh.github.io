@@ -8,10 +8,10 @@ fig-caption: # Add figcaption (optional)
 tags: [TeamCity]
 ---
 
-### Problem
+### Problem :
 I came across this issue in TeamCity today where as part of CI my automation tests are running against dev environment and sometimes tests are failing because deployment build triggered while test build is in progress. in this case my tests will fail because site will be down for few mins as part of deployment. So I need a way to tell TeamCity that do not run deployment build while automation test build is in progress.   
 
-### Solution
+### Solution :
 To solve this problem I need to configure builds in a way that one build should not run while other build is in progress. Apparently it's not that straight forward in TC [at least for me!], I tried different ways but what worked for me is locking builds using shared resources. Below are the steps to configure this.
 
 1.Create a shared resource at project level : **Project -> Shared Resources -> Add a shared resource**

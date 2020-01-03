@@ -10,10 +10,10 @@ tags: [aws, aws-cli, iam, mac]
 
 If you ended up on this post you might be struggling to change the IAM role using aws-cli(for any reason) and found this post! i might be able to help here as i had same frustration some time back :) 
 
-### Problem
+### Problem :
 From aws console i can login to my account and i can switch role to **dev** to access aws resources related to **dev** environment, all looks good here. Now i want to access **dev** resources from my local as i need to run my tests against **dev** resources, as usual i ran the tests with my default credentials (configured using aws-cli) and they fail straight away with error **no access to resource**, this is because my **default** role will not have access to **dev** resources. ok i now know the problem and the solution is simple change roles, BUT its not that simple as i tried 10 different ways to change role to **dev**. Below is the solution worked for me. 
 
-### Solution
+### Solution :
 1. Open credentials file **~/.aws/credentials**
 
 2. It should already have default profile section with access/secret keys [if not use `aws configure` to configure secrets]

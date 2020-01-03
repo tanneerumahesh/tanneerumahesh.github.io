@@ -8,10 +8,10 @@ fig-caption: # Add figcaption (optional)
 tags: [cypress, azure, office365, puppeteer]
 ---
 
-### Problem
+### Problem :
 I have a requirement to automate  azure ad login using cypress. Requirement is when user navigated to site-P it will redirect to azure AD login page where user has to enter login details and they will get redirected to site-P once login is successful. By design cypress doesn't allow this because of many reasons as described [here](https://docs.cypress.io/guides/references/best-practices.html#Visiting-external-sites). I am not going to discuss good and bad about this here [as it’s a vast topic on its own!] but can show you how I managed to workaround this problem.   
 
-### Solution
+### Solution :
 
 #### Approach 
 After completing login process user will be redirected to my site and there will be couple of cookies added to site at this point [this might be different for different sites!], which will be used for any further authentication on site. So if I can get those cookies and add it to browser before starting cypress tests all should work [in theory]
