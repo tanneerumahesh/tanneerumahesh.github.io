@@ -10,11 +10,11 @@ site-twitter: #if your site has a twitter account, enter it here
 author: MAHESH TANNEERU # add your name
 author-img: mahesh.jpg # add your photo
 about-author: I am an enthusiastic Software Engineer and a good Human being :)  # add description
-social-twitter: https://twitter.com/mtanneeru17 # add your Twitter handle
-social-facebook: https://www.facebook.com/mahesh.tanneeru # add your Facebook handle
+social-twitter: mtanneeru17 # add your Twitter handle
+social-facebook: mahesh.tanneeru # add your Facebook handle
 social-github: tanneerumahesh # add your Github handle
-social-linkedin: https://www.linkedin.com/in/mahesh-tanneeru/ # add your Linkedin handle
-social-email: # add your Email address
+social-linkedin: mahesh-tanneeru/ # add your Linkedin handle
+social-email: tanneerumahesh@gmail.com
 
 # Disqus
 discus-identifier:  # add your discus identifier
