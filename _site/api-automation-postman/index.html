@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>TeamCity - Do not run a build while another build is in progress - Mahesh's Tech Helpers</title>
+	<title>Api automation testing using postman - Mahesh's Tech Helpers</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="Mahesh's Tech Helpers" property="og:site_name">
   
-    <meta content="TeamCity - Do not run a build while another build is in progress" property="og:title">
+    <meta content="Api automation testing using postman" property="og:title">
   
   
     <meta content="article" property="og:type">
   
   
-    <meta content="TeamCity - Do not run a build while another build is in progress." property="og:description">
+    <meta content="Automating api testing using postman" property="og:description">
   
   
-    <meta content="/teamcity-do-not-run-build-while-another-build-in-progress/" property="og:url">
+    <meta content="/api-automation-postman/" property="og:url">
   
   
-    <meta content="2019-10-29T09:38:20+00:00" property="article:published_time">
+    <meta content="2020-03-05T17:38:20+00:00" property="article:published_time">
     <meta content="/about/" property="article:author">
   
   
@@ -31,7 +31,11 @@
   
   
     
-    <meta content="TeamCity" property="article:tag">
+    <meta content="postman" property="article:tag">
+    
+    <meta content="automation" property="article:tag">
+    
+    <meta content="api" property="article:tag">
     
   
 
@@ -39,19 +43,19 @@
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@mtanneeru17">
   
-    <meta name="twitter:title" content="TeamCity - Do not run a build while another build is in progress">
+    <meta name="twitter:title" content="Api automation testing using postman">
   
   
-    <meta name="twitter:url" content="/teamcity-do-not-run-build-while-another-build-in-progress/">
+    <meta name="twitter:url" content="/api-automation-postman/">
   
   
-    <meta name="twitter:description" content="TeamCity - Do not run a build while another build is in progress.">
+    <meta name="twitter:description" content="Automating api testing using postman">
   
   
     <meta name="twitter:image:src" content="/assets/img/mahesh.jpg">
   
 
-	<meta name="description" content="TeamCity - Do not run a build while another build is in progress.">
+	<meta name="description" content="Automating api testing using postman">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
@@ -220,47 +224,156 @@ function lunr_search(term) {
     
     <div class="wrap-content">
       <header class="header-page">
-        <h1 class="page-title">TeamCity - Do not run a build while another build is in progress</h1>
-        <div class="page-date"><span>2019, Oct 29&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+        <h1 class="page-title">Api automation testing using postman</h1>
+        <div class="page-date"><span>2020, Mar 05&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
-      <h3 id="problem-">Problem :</h3>
-<p>I came across this issue in TeamCity today where as part of CI my automation tests are running against dev environment and sometimes tests are failing because deployment build triggered while test build is in progress. in this case my tests will fail because site will be down for few mins as part of deployment. So I need a way to tell TeamCity that do not run deployment build while automation test build is in progress.</p>
+      <h3 id="why">WHY?</h3>
 
-<h3 id="solution-">Solution :</h3>
-<p>To solve this problem I need to configure builds in a way that one build should not run while other build is in progress. Apparently it’s not that straight forward in TC [at least for me!], I tried different ways but what worked for me is locking builds using shared resources. Below are the steps to configure this.</p>
+<p>Because its easy to automate api testing using postman :)</p>
 
-<p>1.Create a shared resource at project level : <strong>Project -&gt; Shared Resources -&gt; Add a shared resource</strong></p>
+<p>NOTE: I would choose postman for automation if my APIs are simple and validations doesn’t involve any complex validations or connecting to other systems.</p>
 
-<p>2.Add a Resource name and select <strong>Resource with quota</strong> from resource type</p>
+<h3 id="how">HOW?</h3>
 
-<p>3.Enter 1 in resource quota field</p>
+<p>Lets make it simple (really simple!), we are going to use <code class="highlighter-rouge">https://jsonplaceholder.typicode.com/todos/1</code> as our test api which returns below response and we are going to automate testing this response</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "userId": 1,
+  "id": 1,
+  "title": "delectus aut autem",
+  "completed": false
+}
+</code></pre></div></div>
 
-<p>4.Save resource</p>
+<h4 id="test-api-manually">Test Api manually</h4>
 
-<p><img src="/assets/img/tc-save-resource.png" alt="alt text" /></p>
+<ol>
+  <li>
+    <p>Open postman (<a href="https://www.postman.com/downloads/">install postman</a> if not already installed)</p>
+  </li>
+  <li>
+    <p>Go to <code class="highlighter-rouge">Collections</code> tab and create a new collection</p>
 
-<p>5.Navigate to Deployment build configuration</p>
+    <p><img src="/assets/img/postman-automation/postnam-automation-1.png" alt="alt text" /></p>
+  </li>
+  <li>
+    <p>Click on Add requests, add <code class="highlighter-rouge">Request name</code> and save it</p>
 
-<p>6.Go to Build <strong>Features -&gt; Add build feature -&gt; Shared resources -&gt; Add Lock</strong></p>
+    <p><img src="/assets/img/postman-automation/postnam-automation-2.png" alt="alt text" /></p>
+  </li>
+  <li>
+    <p>Go to created request tab and add a get request to https://jsonplaceholder.typicode.com/todos/1. click on <code class="highlighter-rouge">send</code> and we should see the response as below</p>
 
-<p>7.Select resource name created above and select <strong>Write Lock</strong> in lock type</p>
+    <p><img src="/assets/img/postman-automation/postnam-automation-3.png" alt="alt text" /></p>
+  </li>
+</ol>
 
-<p>8.Save Lock</p>
+<p>Now we manually tested api and all looks good with status code and response, lets see if we can add some assertions programmatically because we don’t want to check all attributes manually all the time!</p>
 
-<p><img src="/assets/img/tc-save-lock.png" alt="alt text" /></p>
+<h4 id="add-programmatic-assertions">Add programmatic assertions</h4>
 
-<p>9.Repeat steps 5-8 for automation tests build</p>
+<ol>
+  <li>
+    <p>Adding Assertions programmatically</p>
 
-<p>DONE :  only one of these builds will run at a time now.</p>
+    <ul>
+      <li>
+        <p>Navigate to <code class="highlighter-rouge">Tests</code> section, this is where we can add assertions to our request response</p>
+      </li>
+      <li>
+        <p>There will be few useful snippets in <code class="highlighter-rouge">SNIPPETS</code> section, clicking on a snippet will create sample code</p>
+      </li>
+      <li>
+        <p>Lets say I want an assertion for status code then I can click on <code class="highlighter-rouge">Status code</code> snippet which will generate sample code for this assertion and we can modify this code as needed</p>
+      </li>
+    </ul>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-4.png" alt="alt text" /></p>
+  </li>
+  <li>
+    <p>Lets not be lazy and add another assertion to check the schema and values in response :)</p>
+
+    <ul>
+      <li>To do this we need to get response into a json object and we can use <code class="highlighter-rouge">Response body : JSON value check</code> snippet to generate a sample code for me.</li>
+    </ul>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-5.png" alt="alt text" /></p>
+
+    <ul>
+      <li>From generated code my response object is in jsonData and I should be able to add assertions on fields in response as below</li>
+    </ul>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-6.png" alt="alt text" /></p>
+
+    <ul>
+      <li>Save the request</li>
+    </ul>
+  </li>
+  <li>
+    <p>Now whenever we send request all tests will be executed after response received, navigate to test results tab to see test results</p>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-7.png" alt="alt text" /></p>
+  </li>
+  <li>
+    <p>Ok all good so far but what happens when a test fail?  lets change the userId value to <code class="highlighter-rouge">2</code> in assertion <code class="highlighter-rouge">pm.expect(jsonData.userId).to.eql(2);</code> and send request. expected is 2 and actual is 1 in this case so test should be failed and we should see failed test in results</p>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-8.png" alt="alt text" /></p>
+  </li>
+</ol>
+
+<p>All good and all Done ?  Not yet! We can create tests for our requests and run them from postman now, BUT we don’t want to do this manually! Here comes our friend <a href="https://www.npmjs.com/package/newman">newman</a> to help us. <a href="https://www.npmjs.com/package/newman">newman</a> is a command-line collection runner for postman and we can use <a href="https://www.npmjs.com/package/newman">newman</a> to run our postman collections from command line.</p>
+
+<h4 id="automate-test-runs">Automate test runs</h4>
+
+<ol>
+  <li>
+    <p>Install <a href="https://www.npmjs.com/package/newman">newman</a> using <code class="highlighter-rouge">npm install -g newman</code></p>
+  </li>
+  <li>
+    <p>Export collection (collection will be exported as json file)</p>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-9.png" alt="alt text" /></p>
+  </li>
+  <li>
+    <p>From command-line / terminal navigate to folder where the collection is exported and run <code class="highlighter-rouge">newman run {exported collection}.json</code></p>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-10.png" alt="alt text" /></p>
+  </li>
+</ol>
+
+<p>That’s it! You should be able to run this when ever there are changes on api or configure it as part of CI.</p>
+
+<p>Oh the final bit! What if your boss asks you to send the report of your test results? Instead of sending results from command-line it will be useful if we can send some kind of html report, We have another friend to help us here <a href="https://www.npmjs.com/package/newman-reporter-htmlextra">newman-reporter-htmlextra</a></p>
+
+<h4 id="generate-html-report">Generate HTML report</h4>
+
+<ol>
+  <li>
+    <p>Install <a href="https://www.npmjs.com/package/newman-reporter-htmlextra">newman-reporter-htmlextra</a> using <code class="highlighter-rouge">npm install -g newman-reporter-htmlextra</code></p>
+  </li>
+  <li>
+    <p>From command-line / terminal navigate to folder where the collection is exported and run <code class="highlighter-rouge">newman run {exported collection}.json -r htmlextra</code> to generate html report (you can use <code class="highlighter-rouge">--reporter-htmlextra-export</code> attribute if you want to export it to a specific path, by default report will be created in same folder)</p>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-11.png" alt="alt text" /></p>
+  </li>
+  <li>
+    <p>You can see beautiful html report generated like below</p>
+
+    <p><img src="/assets/img/postman-automation/postnam-automation-12.png" alt="alt text" /></p>
+  </li>
+</ol>
 
 
       <div class="page-footer">
         <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=TeamCity - Do not run a build while another build is in progress&url=/teamcity-do-not-run-build-while-another-build-in-progress/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://twitter.com/intent/tweet?text=Api automation testing using postman&url=/api-automation-postman/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
        </div>
         <div class="page-tag">
           
-            <a href="/tags#TeamCity" class="tag">&#35; TeamCity</a>
+            <a href="/tags#postman" class="tag">&#35; postman</a>
+          
+            <a href="/tags#automation" class="tag">&#35; automation</a>
+          
+            <a href="/tags#api" class="tag">&#35; api</a>
           
         </div>
       </div>
