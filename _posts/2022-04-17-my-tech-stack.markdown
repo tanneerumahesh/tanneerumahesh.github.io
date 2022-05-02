@@ -10,7 +10,7 @@ tags: [TechStack]
 
 ### Why do i need to capture these ?
 
-Ok so this is for future me :) i have been working with multiple tools and technologies as part of contarcting gigs and often forget few after some time!. i will try to capture any new tools/technologies/platforms/frameworks as part of **this post and this post will be updated on a regular basis**.
+Ok so this is for future me :) i have been working with multiple tools and technologies as part of contarcting gigs and often forget few after some time!. i will try to capture any new tools/technologies/platforms/frameworks as part of this post and **this post will be updated on a regular basis**.
 
 ### TOOLS/TECHNOLOGIES/FRAMEWORKS/PLATFORMS
 
