@@ -2,60 +2,49 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Handling proxy issue while installing cypress through NPM - Mahesh's Tech Helpers</title>
+	<title>Mahesh's Tech Helpers</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="Mahesh's Tech Helpers" property="og:site_name">
   
-    <meta content="Handling proxy issue while installing cypress through NPM" property="og:title">
+    <meta content="Mahesh's Tech Helpers" property="og:title">
   
   
-    <meta content="article" property="og:type">
+    <meta content="website" property="og:type">
   
   
-    <meta content="Handling proxy issue while installing cypress through NPM" property="og:description">
+    <meta content="Sharing is caring :) 
+" property="og:description">
   
   
-    <meta content="/cypress-install-proxy-issue/" property="og:url">
+    <meta content="/page/2/" property="og:url">
   
-  
-    <meta content="2020-01-03T08:32:20+00:00" property="article:published_time">
-    <meta content="/about/" property="article:author">
   
   
     <meta content="/assets/img/mahesh.jpg" property="og:image">
   
   
-    
-  
-  
-    
-    <meta content="cypress" property="article:tag">
-    
-    <meta content="proxy" property="article:tag">
-    
-    <meta content="npm" property="article:tag">
-    
   
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@mtanneeru17">
   
-    <meta name="twitter:title" content="Handling proxy issue while installing cypress through NPM">
+    <meta name="twitter:title" content="Mahesh's Tech Helpers">
   
   
-    <meta name="twitter:url" content="/cypress-install-proxy-issue/">
+    <meta name="twitter:url" content="/page/2/">
   
   
-    <meta name="twitter:description" content="Handling proxy issue while installing cypress through NPM">
+    <meta name="twitter:description" content="Sharing is caring :) 
+">
   
   
     <meta name="twitter:image:src" content="/assets/img/mahesh.jpg">
   
 
-	<meta name="description" content="Handling proxy issue while installing cypress through NPM">
+	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
@@ -125,22 +114,22 @@ var documents = [{
     "id": 0,
     "url": "/",
     "title": "",
-    "body": "{% for post in paginator. posts %}  {% if post. img %}  &lt;a class= post-thumbnail  style= background-image: url({{ /assets/img/  | prepend: site. baseurl | append : post. img}})  href= {{post. url | prepend: site. baseurl}} &gt;&lt;/a&gt; {% else %} {% endif %}   {{post. title}}:   {{ post. content | strip_html | truncatewords: 15 }}   {{post. date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;  {% capture words %}{{ post. content | number_of_words }}{% endcapture %}{% unless words contains  -  %}{{ words | plus: 250 | divided_by: 250 | append:   minute read  }}{% endunless %} {% endfor %} {% include pagination. html %} "
+    "body": "     MY TECH STACK:   Why do i need to capture these ? Ok so this is for future me. . .   2022, Apr 17&nbsp;&nbsp;&nbsp;—&nbsp;  3 minute read      Setup cucumberJS in VS Code (with navigation to steps and step definitions generation):   Problem : While using cucumberJS in VS Code we have to navigate to the step. . .   2021, Nov 09&nbsp;&nbsp;&nbsp;—&nbsp;  2 minute read      How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine:   Problem : There might be cases where we need to work with multiple github repos. . .   2021, Nov 07&nbsp;&nbsp;&nbsp;—&nbsp;  2 minute read      Scheduling automation test builds in jenkins:   What : We need to schedule builds in CI pipelines when we want to run. . .   2020, Dec 01&nbsp;&nbsp;&nbsp;—&nbsp;  2 minute read      Api automation testing using postman:   WHY? Because its easy to automate api testing using postman :) NOTE: I would choose. . .   2020, Mar 05&nbsp;&nbsp;&nbsp;—&nbsp;  4 minute read      Handling proxy issue while installing cypress through NPM:   Problem : If you are under a corporate proxy some times that proxy might not. . .   2020, Jan 03&nbsp;&nbsp;&nbsp;—&nbsp;  1 minute read      TeamCity - Do not run a build while another build is in progress:   Problem : I came across this issue in TeamCity today where as part of CI. . .   2019, Oct 29&nbsp;&nbsp;&nbsp;—&nbsp;  1 minute read      Using MFA with aws cli to switch roles:   Problem : If we have MFA(multi factor authentication) setup enabled on AWS console then we. . .   2019, Oct 28&nbsp;&nbsp;&nbsp;—&nbsp;  1 minute read          Page 1 of 2             "
     }, {
     "id": 1,
     "url": "/tags/",
     "title": "Tags",
-    "body": "      {% capture site_tags %}{% for tag in site. tags %}{{ tag   first }}{% unless forloop. last %},{% endunless %}{% endfor %}{% endcapture %}           {% assign tag_words = site_tags   split:’,’   sort %}    Tags in Blog  {% for this_word in tag_words %}  {{ this_word }} ({{ site. tags[this_word]. size }}) {% endfor %}  {% for this_word in tag_words %} {{ this_word }}:   {% for post in site. tags[this_word] %}{% if post. title != null %}      {{ post. title }}    | {{ post. date | date_to_string }}    {% endif %}{% endfor %} {% endfor %}"
+    "body": " Tags in Blog    Gherkin (1)   TeamCity (1)   TechStack (1)   VS Code (1)   api (1)   automation (1)   aws (2)   aws-cli (2)   azure (1)   ci (1)   cucumberJS (1)   cypress (2)   git (1)   github (1)   iam (2)   jenkins (1)   mac (2)   mfa (1)   npm (1)   office365 (1)   postman (1)   proxy (1)   puppeteer (1)    Gherkin:         Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)    | 09 Nov 2021      TeamCity:         TeamCity - Do not run a build while another build is in progress    | 29 Oct 2019      TechStack:         MY TECH STACK    | 17 Apr 2022      VS Code:         Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)    | 09 Nov 2021      api:         Api automation testing using postman    | 05 Mar 2020      automation:         Api automation testing using postman    | 05 Mar 2020      aws:         Using MFA with aws cli to switch roles    | 28 Oct 2019          Switch to different role using aws-cli    | 11 Oct 2019      aws-cli:         Using MFA with aws cli to switch roles    | 28 Oct 2019          Switch to different role using aws-cli    | 11 Oct 2019      azure:         Login to Azure AD using cypress    | 20 Oct 2019      ci:         Scheduling automation test builds in jenkins    | 01 Dec 2020      cucumberJS:         Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)    | 09 Nov 2021      cypress:         Handling proxy issue while installing cypress through NPM    | 03 Jan 2020          Login to Azure AD using cypress    | 20 Oct 2019      git:         How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine    | 07 Nov 2021      github:         How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine    | 07 Nov 2021      iam:         Using MFA with aws cli to switch roles    | 28 Oct 2019          Switch to different role using aws-cli    | 11 Oct 2019      jenkins:         Scheduling automation test builds in jenkins    | 01 Dec 2020      mac:         Using MFA with aws cli to switch roles    | 28 Oct 2019          Switch to different role using aws-cli    | 11 Oct 2019      mfa:         Using MFA with aws cli to switch roles    | 28 Oct 2019      npm:         Handling proxy issue while installing cypress through NPM    | 03 Jan 2020      office365:         Login to Azure AD using cypress    | 20 Oct 2019      postman:         Api automation testing using postman    | 05 Mar 2020      proxy:         Handling proxy issue while installing cypress through NPM    | 03 Jan 2020      puppeteer:         Login to Azure AD using cypress    | 20 Oct 2019     "
     }, {
     "id": 2,
     "url": "/robots.txt",
     "title": "",
-    "body": "      Sitemap: {{ “sitemap. xml”   absolute_url }}   "
+    "body": "Sitemap: /sitemap. xml "
     }, {
     "id": 3,
     "url": "/page/2/",
     "title": "",
-    "body": "{% for post in paginator. posts %}  {% if post. img %}  &lt;a class= post-thumbnail  style= background-image: url({{ /assets/img/  | prepend: site. baseurl | append : post. img}})  href= {{post. url | prepend: site. baseurl}} &gt;&lt;/a&gt; {% else %} {% endif %}   {{post. title}}:   {{ post. content | strip_html | truncatewords: 15 }}   {{post. date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;  {% capture words %}{{ post. content | number_of_words }}{% endcapture %}{% unless words contains  -  %}{{ words | plus: 250 | divided_by: 250 | append:   minute read  }}{% endunless %} {% endfor %} {% include pagination. html %} "
+    "body": "     Login to Azure AD using cypress:   Problem : I have a requirement to automate azure ad login using cypress. Requirement is. . .   2019, Oct 20&nbsp;&nbsp;&nbsp;—&nbsp;  4 minute read      Switch to different role using aws-cli:   If you ended up on this post you might be struggling to change the IAM. . .   2019, Oct 11&nbsp;&nbsp;&nbsp;—&nbsp;  2 minute read                          Page 2 of 2       "
     }, {
     "id": 4,
     "url": "/my-tech-stack/",
@@ -243,61 +232,46 @@ function lunr_search(term) {
 <div id="lunrsearchresults">
     <ul></ul>
 </div>
-  <article class="article-page">
-  <div class="page-content">
-    
-    
-    <div class="wrap-content">
-      <header class="header-page">
-        <h1 class="page-title">Handling proxy issue while installing cypress through NPM</h1>
-        <div class="page-date"><span>2020, Jan 03&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-      </header>
-      <h3 id="problem-">Problem :</h3>
-<p>If you are under a corporate proxy some times that proxy might not allow you to download cypress through npm install and cypress can fail with below error.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Cypress App could not be downloaded. 
-Does your workplace require a proxy to be used to access the Internet? If so, you must configure the HTTP_PROXY environment variable before downloading Cypress. Read more: https://on.cypress.io/proxy-configuration 
-Otherwise, please check network connectivity and try again
-</code></pre></div></div>
-
-<h3 id="solution-">Solution :</h3>
-<ul>
-  <li>
-    <p>As a permanent solution talk to your infrastructure /security teams! And ask them to add cypress domain to proxy white list.</p>
-  </li>
-  <li>
-    <p>As a temporary solution</p>
-    <ol>
-      <li>Download the zipfile manually by accessing link [https://download.cypress.io/desktop/3.4.1?platform=win32&amp;arch=x64] from browser</li>
-      <li>Set downloaded file as environment variable for CYPRESS_INSTALL_BINARY using <code class="language-plaintext highlighter-rouge">export CYPRESS_INSTALL_BINARY=/C/Users/username/downloads/cypress.zip</code></li>
-      <li>Run <code class="language-plaintext highlighter-rouge">npm i</code> now and cypress should be installed successfully.</li>
-    </ol>
-  </li>
-</ul>
-
-      <div class="page-footer">
-        <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=Handling proxy issue while installing cypress through NPM&url=/cypress-install-proxy-issue/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
-       </div>
-        <div class="page-tag">
-          
-            <a href="/tags#cypress" class="tag">&#35; cypress</a>
-          
-            <a href="/tags#proxy" class="tag">&#35; proxy</a>
-          
-            <a href="/tags#npm" class="tag">&#35; npm</a>
-          
-        </div>
-      </div>
-      <section class="comment-area">
-  <div class="comment-wrapper">
-    
+  
+<article class="post">
+  
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/cypress-azureAD-login/">Login to Azure AD using cypress</a></h2>
+    <p>Problem : I have a requirement to automate azure ad login using cypress. Requirement is...</p>
+    <span class="post-date">2019, Oct 20&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">4 minute read</span>
   </div>
-</section> <!-- End Comment Area -->
+</article>
 
-    </div> <!-- End Wrap Content -->
-  </div> <!-- End Page Content -->
-</article> <!-- End Article Page -->
+<article class="post">
+  
+  
+  <div class="post-content">
+    <h2 class="post-title"><a href="/aws-cli-switch-role/">Switch to different role using aws-cli</a></h2>
+    <p>If you ended up on this post you might be struggling to change the IAM...</p>
+    <span class="post-date">2019, Oct 11&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+    <span class="post-words">2 minute read</span>
+  </div>
+</article>
+
+
+<div class="container">
+  <nav class="pagination" role="pagination">
+    <ul>
+      
+        
+        <p><a class="newer-posts" href="/"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></p>
+        
+      
+
+      <p><span class="page-number">Page 2 of 2</span></p>
+
+      
+    </ul>
+  </nav>
+</div>
+
 
 </div>
 

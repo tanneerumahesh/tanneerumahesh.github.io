@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Handling proxy issue while installing cypress through NPM - Mahesh's Tech Helpers</title>
+	<title>Setup cucumberJS in VS Code (with navigation to steps and step definitions generation) - Mahesh's Tech Helpers</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="Mahesh's Tech Helpers" property="og:site_name">
   
-    <meta content="Handling proxy issue while installing cypress through NPM" property="og:title">
+    <meta content="Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)" property="og:title">
   
   
     <meta content="article" property="og:type">
   
   
-    <meta content="Handling proxy issue while installing cypress through NPM" property="og:description">
+    <meta content="Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)" property="og:description">
   
   
-    <meta content="/cypress-install-proxy-issue/" property="og:url">
+    <meta content="/setup-cucumberjs-vs-code/" property="og:url">
   
   
-    <meta content="2020-01-03T08:32:20+00:00" property="article:published_time">
+    <meta content="2021-11-09T08:32:20+00:00" property="article:published_time">
     <meta content="/about/" property="article:author">
   
   
@@ -31,11 +31,11 @@
   
   
     
-    <meta content="cypress" property="article:tag">
+    <meta content="VS Code" property="article:tag">
     
-    <meta content="proxy" property="article:tag">
+    <meta content="cucumberJS" property="article:tag">
     
-    <meta content="npm" property="article:tag">
+    <meta content="Gherkin" property="article:tag">
     
   
 
@@ -43,19 +43,19 @@
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@mtanneeru17">
   
-    <meta name="twitter:title" content="Handling proxy issue while installing cypress through NPM">
+    <meta name="twitter:title" content="Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)">
   
   
-    <meta name="twitter:url" content="/cypress-install-proxy-issue/">
+    <meta name="twitter:url" content="/setup-cucumberjs-vs-code/">
   
   
-    <meta name="twitter:description" content="Handling proxy issue while installing cypress through NPM">
+    <meta name="twitter:description" content="Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)">
   
   
     <meta name="twitter:image:src" content="/assets/img/mahesh.jpg">
   
 
-	<meta name="description" content="Handling proxy issue while installing cypress through NPM">
+	<meta name="description" content="Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
@@ -249,43 +249,65 @@ function lunr_search(term) {
     
     <div class="wrap-content">
       <header class="header-page">
-        <h1 class="page-title">Handling proxy issue while installing cypress through NPM</h1>
-        <div class="page-date"><span>2020, Jan 03&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+        <h1 class="page-title">Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)</h1>
+        <div class="page-date"><span>2021, Nov 09&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
       <h3 id="problem-">Problem :</h3>
-<p>If you are under a corporate proxy some times that proxy might not allow you to download cypress through npm install and cypress can fail with below error.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Cypress App could not be downloaded. 
-Does your workplace require a proxy to be used to access the Internet? If so, you must configure the HTTP_PROXY environment variable before downloading Cypress. Read more: https://on.cypress.io/proxy-configuration 
-Otherwise, please check network connectivity and try again
-</code></pre></div></div>
+<p>While using cucumberJS in VS Code we have to navigate to the step definition file (from steps in features) and generate the step definitions (rather than writing steps defs manually to save time!). while this is all possible it is not very straight forward to setup.</p>
 
 <h3 id="solution-">Solution :</h3>
-<ul>
+
+<ol>
   <li>
-    <p>As a permanent solution talk to your infrastructure /security teams! And ask them to add cypress domain to proxy white list.</p>
+    <p>Install Cucumber extensions</p>
+
+    <ul>
+      <li>Install <a href="https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete">Cucumber (Gherkin) Full Support</a> extension to support cucumber JS actions</li>
+      <li>Install <a href="https://marketplace.visualstudio.com/items?itemName=muralidharan92.cuke-step-definition-generator">Cuke Step Definition Generator</a> extension to generate step definitions from feature files.</li>
+    </ul>
   </li>
   <li>
-    <p>As a temporary solution</p>
-    <ol>
-      <li>Download the zipfile manually by accessing link [https://download.cypress.io/desktop/3.4.1?platform=win32&amp;arch=x64] from browser</li>
-      <li>Set downloaded file as environment variable for CYPRESS_INSTALL_BINARY using <code class="language-plaintext highlighter-rouge">export CYPRESS_INSTALL_BINARY=/C/Users/username/downloads/cypress.zip</code></li>
-      <li>Run <code class="language-plaintext highlighter-rouge">npm i</code> now and cypress should be installed successfully.</li>
-    </ol>
+    <p>Add bellow settings to VS Code workspace settings.json file (<code class="language-plaintext highlighter-rouge">note: it seems there is a bug with extension where settings in user's settings are not loaded correctly. so we need to add bellow settings to VS Code workspace settings.json file</code>)</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"cucumberautocomplete.steps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"steps/*.ts"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hooks/*.ts"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"cucumberautocomplete.syncfeatures"</span><span class="p">:</span><span class="w"> </span><span class="s2">"features/*feature"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cucumberautocomplete.strictGherkinCompletion"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cucumberautocomplete.smartSnippets"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cucumberautocomplete.stepsInvariants"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+    <ul>
+      <li>update paths in <code class="language-plaintext highlighter-rouge">cucumberautocomplete.steps</code> with relative paths to your steps/hooks folders</li>
+      <li>update paths in <code class="language-plaintext highlighter-rouge">"cucumberautocomplete.syncfeatures"</code> with relative paths to your features folders</li>
+    </ul>
   </li>
-</ul>
+  <li>
+    <p>restart VS Code</p>
+
+    <ul>
+      <li>To navigate to step definitions from feature files use <code class="language-plaintext highlighter-rouge">CTRL(or CMD) + click</code> on step in feature file.</li>
+      <li>To generate step definitions from feature files, select step and click on <code class="language-plaintext highlighter-rouge">Generate step definitions</code> link on top right</li>
+    </ul>
+  </li>
+</ol>
+
 
       <div class="page-footer">
         <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=Handling proxy issue while installing cypress through NPM&url=/cypress-install-proxy-issue/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://twitter.com/intent/tweet?text=Setup cucumberJS in VS Code (with navigation to steps and step definitions generation)&url=/setup-cucumberjs-vs-code/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
        </div>
         <div class="page-tag">
           
-            <a href="/tags#cypress" class="tag">&#35; cypress</a>
+            <a href="/tags#VS Code" class="tag">&#35; VS Code</a>
           
-            <a href="/tags#proxy" class="tag">&#35; proxy</a>
+            <a href="/tags#cucumberJS" class="tag">&#35; cucumberJS</a>
           
-            <a href="/tags#npm" class="tag">&#35; npm</a>
+            <a href="/tags#Gherkin" class="tag">&#35; Gherkin</a>
           
         </div>
       </div>

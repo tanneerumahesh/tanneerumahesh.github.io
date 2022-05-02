@@ -1,23 +1,27 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var prefix = require('gulp-autoprefixer');
-var imagemin = require('gulp-imagemin');
-var pngquant = require('imagemin-pngquant');
-var cache = require('gulp-cache');
-var cp = require('child_process');
-var browserSync = require('browser-sync');
+// import { task, series, src, dest, watch } from 'gulp';
+import gulp from 'gulp';
+// import sass from 'gulp-sass';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
+import prefix from 'gulp-autoprefixer';
+import imagemin from 'gulp-imagemin';
+import pngquant from 'imagemin-pngquant';
+import cache from 'gulp-cache';
+import { spawn } from 'child_process';
+import browserSync, { reload, notify as _notify } from 'browser-sync';
 
 var jekyll   = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
 
 // Build the Jekyll Site
 gulp.task('jekyll-build', function (done) {
-    return cp.spawn( jekyll , ['build'], {stdio: 'inherit'})
+    return spawn( jekyll , ['build'], {stdio: 'inherit'})
         .on('close', done);
 });
 
 // Rebuild Jekyll and page reload
 gulp.task('jekyll-rebuild', gulp.series('jekyll-build', function () {
-    browserSync.reload();
+    reload();
 }));
 
 // Compile files
@@ -25,11 +29,11 @@ gulp.task('sass', function () {
     return gulp.src('assets/css/scss/main.scss')
         .pipe(sass({
             outputStyle: 'expanded',
-            onError: browserSync.notify
+            onError: _notify
         }))
         .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(gulp.dest('_site/assets/css'))
-        .pipe(browserSync.reload({stream:true}))
+        .pipe(reload({stream:true}))
         .pipe(gulp.dest('assets/css'));
 });
 
@@ -43,7 +47,7 @@ gulp.task('img', function() {
 			use: [pngquant()]
 		})))
     .pipe(gulp.dest('_site/assets/img'))
-    .pipe(browserSync.reload({stream:true}));
+    .pipe(reload({stream:true}));
 });
 
 // Watch scss, html, img files

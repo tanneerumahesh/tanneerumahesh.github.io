@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Handling proxy issue while installing cypress through NPM - Mahesh's Tech Helpers</title>
+	<title>How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine - Mahesh's Tech Helpers</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="Mahesh's Tech Helpers" property="og:site_name">
   
-    <meta content="Handling proxy issue while installing cypress through NPM" property="og:title">
+    <meta content="How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine" property="og:title">
   
   
     <meta content="article" property="og:type">
   
   
-    <meta content="Handling proxy issue while installing cypress through NPM" property="og:description">
+    <meta content="Adding multiple github accounts on same machine" property="og:description">
   
   
-    <meta content="/cypress-install-proxy-issue/" property="og:url">
+    <meta content="/multiple-github-accounts-on-same-machine/" property="og:url">
   
   
-    <meta content="2020-01-03T08:32:20+00:00" property="article:published_time">
+    <meta content="2021-11-07T15:32:20+00:00" property="article:published_time">
     <meta content="/about/" property="article:author">
   
   
@@ -31,11 +31,9 @@
   
   
     
-    <meta content="cypress" property="article:tag">
+    <meta content="git" property="article:tag">
     
-    <meta content="proxy" property="article:tag">
-    
-    <meta content="npm" property="article:tag">
+    <meta content="github" property="article:tag">
     
   
 
@@ -43,19 +41,19 @@
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@mtanneeru17">
   
-    <meta name="twitter:title" content="Handling proxy issue while installing cypress through NPM">
+    <meta name="twitter:title" content="How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine">
   
   
-    <meta name="twitter:url" content="/cypress-install-proxy-issue/">
+    <meta name="twitter:url" content="/multiple-github-accounts-on-same-machine/">
   
   
-    <meta name="twitter:description" content="Handling proxy issue while installing cypress through NPM">
+    <meta name="twitter:description" content="Adding multiple github accounts on same machine">
   
   
     <meta name="twitter:image:src" content="/assets/img/mahesh.jpg">
   
 
-	<meta name="description" content="Handling proxy issue while installing cypress through NPM">
+	<meta name="description" content="Adding multiple github accounts on same machine">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta property="og:image" content="">
@@ -249,43 +247,106 @@ function lunr_search(term) {
     
     <div class="wrap-content">
       <header class="header-page">
-        <h1 class="page-title">Handling proxy issue while installing cypress through NPM</h1>
-        <div class="page-date"><span>2020, Jan 03&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+        <h1 class="page-title">How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine</h1>
+        <div class="page-date"><span>2021, Nov 07&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
       <h3 id="problem-">Problem :</h3>
-<p>If you are under a corporate proxy some times that proxy might not allow you to download cypress through npm install and cypress can fail with below error.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The Cypress App could not be downloaded. 
-Does your workplace require a proxy to be used to access the Internet? If so, you must configure the HTTP_PROXY environment variable before downloading Cypress. Read more: https://on.cypress.io/proxy-configuration 
-Otherwise, please check network connectivity and try again
-</code></pre></div></div>
+<p>There might be cases where we need to work with multiple github repos from different github accounts on same machine (like personal and work [or multiple work accounts]). we should be able to do this easily by configuring ssh configs.</p>
 
 <h3 id="solution-">Solution :</h3>
-<ul>
+
+<ol>
   <li>
-    <p>As a permanent solution talk to your infrastructure /security teams! And ask them to add cypress domain to proxy white list.</p>
+    <p>Create new ssh keys for the accounts you want to work with</p>
+
+    <ul>
+      <li>navigate to <code class="language-plaintext highlighter-rouge">.ssh</code> folder</li>
+      <li>run <code class="language-plaintext highlighter-rouge">ssh-keygen -t ed25519 -C "test-user@test-site.com"</code> to generate public and private keys [<strong>this needs to be done for all accounts</strong>]</li>
+      <li>add a filename related to account which can be easily identified</li>
+    </ul>
   </li>
   <li>
-    <p>As a temporary solution</p>
-    <ol>
-      <li>Download the zipfile manually by accessing link [https://download.cypress.io/desktop/3.4.1?platform=win32&amp;arch=x64] from browser</li>
-      <li>Set downloaded file as environment variable for CYPRESS_INSTALL_BINARY using <code class="language-plaintext highlighter-rouge">export CYPRESS_INSTALL_BINARY=/C/Users/username/downloads/cypress.zip</code></li>
-      <li>Run <code class="language-plaintext highlighter-rouge">npm i</code> now and cypress should be installed successfully.</li>
-    </ol>
+    <p>Update ssh config with details created in above step</p>
+
+    <ul>
+      <li>open <code class="language-plaintext highlighter-rouge">config</code> file in <code class="language-plaintext highlighter-rouge">.ssh</code> folder</li>
+      <li>
+        <p>add the following sections for each account (if we have three accounts we need to add three host sections with different host names)</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host hostName {any name related to account}
+        HostName github.com
+        User git
+    IdentityFile ~/.ssh/{private file name created in above step [file without .pub extension]}
+    AddKeysToAgent yes
+    PreferredAuthentications publickey
+    UseKeychain yes
+    IdentitiesOnly yes
+</code></pre></div>        </div>
+      </li>
+    </ul>
   </li>
-</ul>
+  <li>
+    <p>Add key to ssh agent (so that we don’t need to enter password with git actions)</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ssh-add -K {private file name created in step 1 [file without .pub extension]}</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>Add public key to github account</p>
+
+    <ul>
+      <li>navigate to <code class="language-plaintext highlighter-rouge">.ssh</code> folder</li>
+      <li>open public key file [file with <code class="language-plaintext highlighter-rouge">.pub</code> extension] related to account</li>
+      <li>copy the content of the file to clipboard</li>
+      <li>navigate to github account</li>
+      <li>click on <code class="language-plaintext highlighter-rouge">settings</code></li>
+      <li>click on <code class="language-plaintext highlighter-rouge">SSH and GPG keys</code></li>
+      <li>click on <code class="language-plaintext highlighter-rouge">add key</code></li>
+      <li>paste the content of the file to clipboard</li>
+      <li>click on <code class="language-plaintext highlighter-rouge">add key</code></li>
+      <li>click on <code class="language-plaintext highlighter-rouge">save</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>Add github account to individual git repos</p>
+
+    <ul>
+      <li>open git config in repo (<code class="language-plaintext highlighter-rouge">config</code> file in <code class="language-plaintext highlighter-rouge">.git</code> folder)</li>
+      <li>
+        <p>add/update following section with host name related to account added in step 2</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[remote "origin"]
+    url = git@{hostNameRelatedToAccount}:{githubAccount}/{repoName}.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>add/update following section with username and email related to account</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ```
+  [user]
+      name = {username related to account}
+      email = {user email related to account}
+  ```
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>All done! we should be able to use logins from different github accounts on same machine.</p>
 
       <div class="page-footer">
         <div class="page-share">
-          <a href="https://twitter.com/intent/tweet?text=Handling proxy issue while installing cypress through NPM&url=/cypress-install-proxy-issue/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
+          <a href="https://twitter.com/intent/tweet?text=How to add multiple github accounts (like personal and work or [multiple work accounts]) on same machine&url=/multiple-github-accounts-on-same-machine/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
        </div>
         <div class="page-tag">
           
-            <a href="/tags#cypress" class="tag">&#35; cypress</a>
+            <a href="/tags#git" class="tag">&#35; git</a>
           
-            <a href="/tags#proxy" class="tag">&#35; proxy</a>
-          
-            <a href="/tags#npm" class="tag">&#35; npm</a>
+            <a href="/tags#github" class="tag">&#35; github</a>
           
         </div>
       </div>
