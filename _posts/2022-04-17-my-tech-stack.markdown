@@ -54,6 +54,13 @@ Ok so this is for future me :) i have been working with multiple tools and techn
 | Ready API |             |      |      |         |
 | Insomnia  |             |      |      |         |
 
+#### Contract testing
+
+| tool     | Description | Pros | Cons | Comment |
+| -------- | ----------- | ---- | ---- | ------- |
+| Pact     |             |      |      |         |
+| Pactflow |             |      |      |         |
+
 #### Performance / Load Testing
 
 | tool    | Description | Pros | Cons | Comment |
@@ -62,6 +69,20 @@ Ok so this is for future me :) i have been working with multiple tools and techn
 | Gatling |             |      |      |         |
 | Jmeter  |             |      |      |         |
 | Locust  |             |      |      |         |
+
+#### Webpage Performance / Checks
+
+| tool                | Description | Pros | Cons | Comment |
+| ------------------- | ----------- | ---- | ---- | ------- |
+| Lighthouse          |             |      |      |         |
+| HTML navigation API |             |      |      |         |
+
+#### Proxy Tools
+
+| tool         | Description | Pros | Cons | Comment |
+| ------------ | ----------- | ---- | ---- | ------- |
+| Proxyman     |             |      |      |         |
+| Charls proxy |             |      |      |         |
 
 #### DATA Transformations / QA
 
@@ -125,6 +146,7 @@ Ok so this is for future me :) i have been working with multiple tools and techn
 | GKE        |             |      |      |         |
 | EKS        |             |      |      |         |
 | Docker     |             |      |      |         |
+| Terraform  |             |      |      |         |
 
 #### BIG DATA
 
@@ -136,7 +158,14 @@ Ok so this is for future me :) i have been working with multiple tools and techn
 
 #### Machine Learning / AI
 
-| tool                                                | Description | Pros | Cons | Comment |
-| --------------------------------------------------- | ----------- | ---- | ---- | ------- |
-| [AWS sage maker](https://aws.amazon.com/sagemaker/) |             |      |      |         |
-| [TensorFlow](https://www.tensorflow.org/)           |             |      |      |         |
+| tool                                                     | Description | Pros | Cons | Comment |
+| -------------------------------------------------------- | ----------- | ---- | ---- | ------- |
+| [AWS sage maker](https://aws.amazon.com/sagemaker/)      |             |      |      |         |
+| [TensorFlow](https://www.tensorflow.org/)                |             |      |      |         |
+| [BigQuery ML](https://cloud.google.com/bigquery-ml/docs) |             |      |      |         |
+
+#### Secrets manager
+
+| tool        | Description | Pros | Cons | Comment |
+| ----------- | ----------- | ---- | ---- | ------- |
+| AWS Cognito |             |      |      |         |
